@@ -28,7 +28,7 @@ localdb = {
 
 
 if( os.getenv('SERVER_SOFTWARE','').startswith('Google App Engine') or
-    os.getenv('SETTINGS_MODE') == 'prod' or True):
+    os.getenv('SETTINGS_MODE') == 'prod' or False):
     DATABASES = skydb
 else:
     DATABASES = localdb
