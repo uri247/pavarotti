@@ -4,6 +4,11 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
+
+env_variables:
+    DJANGO_SETTINGS_MODULE: 'pavarotti.settings'
+
+
 libraries:
 - name: django
   version: "1.4"
