@@ -2,13 +2,14 @@ from django.contrib import admin
 from faves.models import Link, LinkGroup
 
 
-class LinkAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['title', 'group']}),
-        ('History', {'fields': ['visited']}),
-        ('Network', {'fields': ['url']}),
-    ]
-    
+class LinkInline(admin.StackedInline):
+    model = Link
+    extra = 5
 
-admin.site.register(Link, LinkAdmin)
-admin.site.register(LinkGroup)
+class LinkGroupAdmin(admin.ModelAdmin):
+    fields = ['title', 'created_date']
+    inlines = [LinkInline]
+
+
+admin.site.register(LinkGroup, LinkGroupAdmin)
+
