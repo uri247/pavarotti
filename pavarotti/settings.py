@@ -11,27 +11,33 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-skydb = {
-    'default': {
+DATABASES = None
+
+if( os.getenv('SERVER_SOFTWARE','').startswith('Google App Engine') or
+    os.getenv('SETTINGS_MODE') == 'prod'):
+    #We are on google, or want to work with google database
+    DATABASES = { 'default': {
         'ENGINE': 'google.appengine.ext.django.backends.rdbms',
         'INSTANCE': 'london.org.il:database:data',
         'NAME': 'pavarotti_db',
-    }             
-}
-
-localdb = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'c:\\local\\data\\pavarotti.sqlite',
-    }
-}
-
-
-if( os.getenv('SERVER_SOFTWARE','').startswith('Google App Engine') or
-    os.getenv('SETTINGS_MODE') == 'prod' or False):
-    DATABASES = skydb
+    } }
+elif( os.getenv('COMPUTERNAME') == 'DT1' ):
+    #I'm in my home, use the mysql server. First get the password
+    from maipai import secrets
+    password = secrets.query('cut', 'maipai', 'password')
+    DATABASES = { 'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'pavarotti',
+        'USER': 'root',
+        'PASSWORD': password,
+        'HOST': 'precise',
+    } }
 else:
-    DATABASES = localdb
+    #use sqlite
+    DATABASES = { 'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'c:\\local\\data\\pavarotti.sqlite',                              
+    } }
 
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
