@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import datetime
 
 class LinkGroup(models.Model):
     """A group of links
@@ -8,6 +10,15 @@ class LinkGroup(models.Model):
     
     def __unicode__(self):
         return self.title
+    
+    def is_recent(self):
+        return timezone.now() - self.created_date < datetime.timedelta(days=1)
+
+    
+    is_recent.admin_order_field = 'created_date'
+    is_recent.boolean = True
+    is_recent.short_description = 'created recently?'
+    
     
 class Link(models.Model):
     """A favorite link

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<style type="text/css">
+
+.bordered {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-collapse: collapse;
+    padding: 2px;
+}
+
+table {
+    width: 600px;
+}
+
+td {
+}
+
+th {
+    width: 50%;
+}
+</style>
+
+</head>
+<body>
+    <h1>{{ group.title }}</h1>
+    <table class="bordered">
+        <thead>
+            <tr>
+                <th class="bordered">Title</th>
+                <th class="bordered">URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for link in group.link_set.all %}
+                <tr>
+                    <td class="bordered">{{ link.title }}</td>
+                    <td class="bordered">{{ link.url }}</td>
+                </tr>
+            {% endfor %}                
+        </tbody>    
+    </table>
+</body>
+</html>

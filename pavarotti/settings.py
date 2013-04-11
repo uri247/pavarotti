@@ -11,6 +11,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+                            
 DATABASES = None
 
 if( os.getenv('SERVER_SOFTWARE','').startswith('Google App Engine') or
@@ -127,10 +130,18 @@ ROOT_URLCONF = 'pavarotti.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'pavarotti.wsgi.application'
 
+
+my_tmpl_dir = os.path.abspath( os.path.join( PROJECT_PATH, '..', 'templates' ) )
+if( os.path.sep != '/' ):
+    my_tmpl_dir = my_tmpl_dir.replace( os.path.sep, '/' )
+                               
+
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    #"c:/uri/pp/pavarotti/templates"
+    my_tmpl_dir,
 )
 
 INSTALLED_APPS = (

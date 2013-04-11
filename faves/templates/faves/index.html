@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Pavarotti</title>
+</head>
+
+<body>
+
+    <h1>Your Favorites:</h1>
+    {% if group_list %}
+	    <ul>
+	        {% for group in group_list %}
+	            <li><a href="g{{ group.id }}/">{{ group.title }}</a></li>
+	        {% endfor %}
+	    </ul>
+	{% else %}
+	    <p>No groups are available</p>
+	{% endif %}
+</body>
+</html>
